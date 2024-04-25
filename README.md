@@ -10,3 +10,7 @@ pip install fastapi
 
 ## install uvicorn
 pip install uvicorn
+
+## Run 
+uvicorn  main:app --reload  
+uvicorn  main:app --reload  --port 5000 --host 0.0.0.0
