@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from typing import Optional
+
 
 app =  FastAPI()
 app.title = 'Mi aplication con FastAPI'
@@ -15,13 +17,21 @@ movies = [
         "rating": 7.8,
         "category": "Acción"
     },
-      {
+    {
         "id": 2,
         "title": "Avatar2",
         "overview": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que...",
         "year": "2010",
         "rating": 7.8,
-        "category": "Acción"
+        "category": "Amor"
+    },
+    {
+        "id": 3,
+        "title": "Diego",
+        "overview": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que...",
+        "year": "2010",
+        "rating": 7.8,
+        "category": "Miedo"
     }
 ]
 
@@ -40,3 +50,10 @@ def get_movie(id: int):
      return [movie for movie in movies if movie["id"] == id]
     ##movie = next((movie for movie in movies if movie["id"] == id), [])
     ##return movie
+
+
+@app.get('/movies/', tags=['movies'])
+#def get_movies_by_category(category: str, year: Optinal[int] = None):
+def get_movies_by_category(category: str, year: str | None = None):
+    filtered_movies = [movie for movie in movies if movie['category']== category]
+    return {'count': len(filtered_movies), 'results': filtered_movies}  
